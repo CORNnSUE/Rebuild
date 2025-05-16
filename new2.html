@@ -1,0 +1,4387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Furniture Store Template</title>
+  <style>
+    /* Base responsive styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Montserrat', Arial, sans-serif;
+        background: #fff;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    /* Responsive container */
+    .container {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    /* Responsive grid system */
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+    }
+
+    .col {
+        flex: 1 0 0%;
+        padding: 0 15px;
+    }
+
+    /* Media queries for different screen sizes */
+    @media (max-width: 1200px) {
+        .container {
+            max-width: 960px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .container {
+            max-width: 720px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            max-width: 540px;
+        }
+        
+        .row {
+            flex-direction: column;
+        }
+        
+        .col {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .container {
+            padding: 0 10px;
+        }
+    }
+
+    /* Responsive hero section */
+    @media (max-width: 768px) {
+        .hero-slider-section {
+            height: 50vh;
+            min-height: 300px;
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            padding: 0 15px;
+        }
+
+        .hero-btn {
+            padding: 10px 24px;
+            font-size: 1rem;
+        }
+    }
+
+    /* Responsive category section */
+    @media (max-width: 992px) {
+        .category-section {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            padding: 15px 0;
+        margin: 0;
+            position: relative;
+        }
+
+        .category-grid {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 15px;
+            padding: 0 15px;
+            width: auto;
+            min-width: min-content;
+            justify-content: flex-start;
+            margin: 0;
+        }
+
+        .category-card {
+            flex: 0 0 300px;
+            min-width: 300px;
+            width: 300px;
+            height: 200px;
+            margin: 0;
+            scroll-snap-align: start;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .category-section::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-section {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .category-section {
+            padding: 12px 0;
+        }
+
+        .category-grid {
+            gap: 12px;
+            padding: 0 12px;
+        }
+
+        .category-card {
+            flex: 0 0 280px;
+            min-width: 280px;
+            width: 280px;
+            height: 180px;
+        }
+
+        .category-content {
+            padding: 12px;
+        }
+
+        .category-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .category-desc {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .category-section {
+            padding: 10px 0;
+        }
+
+        .category-grid {
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .category-card {
+            flex: 0 0 260px;
+            min-width: 260px;
+            width: 260px;
+            height: 160px;
+        }
+
+        .category-content {
+            padding: 10px;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+
+        .category-desc {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .category-btn {
+            padding: 6px 14px;
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Responsive featured section */
+    @media (max-width: 992px) {
+        .featured-card {
+            min-width: calc(33.333% - 20px);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .featured-section {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 15px 0;
+        }
+
+        .featured-slider-wrp {
+        position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        .featured-slider {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 15px;
+            padding: 0 15px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .featured-card {
+            flex: 0 0 300px;
+            min-width: 300px;
+            width: 300px;
+            margin: 0;
+            scroll-snap-align: start;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .featured-img-wrap {
+        width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .featured-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-info {
+            padding: 15px;
+        }
+
+        .featured-name {
+            font-size: 1.1rem;
+            margin: 8px 0;
+        }
+
+        .featured-vendor {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .featured-price-row {
+            margin: 8px 0;
+        display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .featured-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .featured-stock {
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .featured-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .featured-slider {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .featured-section {
+            padding: 12px 0;
+        }
+
+        .featured-slider {
+            gap: 12px;
+            padding: 0 12px;
+        }
+
+        .featured-card {
+            flex: 0 0 280px;
+            min-width: 280px;
+            width: 280px;
+        }
+
+        .featured-img-wrap {
+            height: 280px;
+        }
+
+        .featured-info {
+            padding: 12px;
+        }
+
+        .featured-name {
+            font-size: 1rem;
+            margin: 6px 0;
+        }
+
+        .featured-vendor {
+            font-size: 0.85rem;
+        }
+
+        .featured-price {
+            font-size: 1.1rem;
+        }
+
+        .featured-stock {
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+    }
+
+    /* Responsive blog section */
+    @media (max-width: 992px) {
+        .blog-card {
+            min-width: calc(50% - 15px);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .blog-card {
+            min-width: 100%;
+        }
+
+        .blog-image {
+            height: 140px;
+        }
+    }
+
+    /* Responsive service info section */
+    @media (max-width: 992px) {
+        .service-info-item {
+            flex: 0 0 50%;
+            margin-bottom: 30px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .service-info-item {
+            flex: 0 0 100%;
+        }
+    }
+
+    /* Mobile menu styles */
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        z-index: 1000;
+        padding: 20px;
+    }
+
+    .mobile-menu.active {
+        display: block;
+    }
+
+    .mobile-menu-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .mobile-menu-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .mobile-menu-nav a {
+        color: #222;
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .beae-switch-btn--desktop,
+      .beae-switch-btn--mobile {
+        padding: 4px 8px;
+        font-size: 0.95rem;
+      }
+    }
+    .hero-slider-section {
+      position: relative;
+      width: 100%;
+      min-height: 420px;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+        overflow: hidden;
+    }
+    .hero-slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .hero-slide {
+        position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%; height: 100%;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.6);
+      z-index: 1;
+    }
+    .hero-bg-video video {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.6);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: -1px;
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      margin-bottom: 28px;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    .hero-btn {
+      display: inline-block;
+      background: #ff5a1f;
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.2s;
+    }
+    .hero-btn:hover {
+      background: #e04a0f;
+    }
+    .hero-slider-nav {
+        position: absolute;
+        top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      color: #ff5a1f;
+      border: 1px solid #ff5a1f;
+      border-radius: 50% !important;
+      width: 38px;
+      height: 38px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1002 !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: background 0.2s, color 0.2s, opacity 0.2s;
+      pointer-events: auto !important;
+      overflow: hidden;
+    }
+    .hero-slider-nav-left { left: 24px; }
+    .hero-slider-nav-right { right: 24px; }
+    .hero-slider-nav:hover { background: rgba(0,0,0,0.5); }
+    .hero-slider-pagination {
+      position: absolute;
+        left: 50%;
+      bottom: 32px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 20;
+    }
+    .hero-slider-dot {
+      width: 14px; height: 14px;
+      border-radius: 50% !important;
+      background: #fff;
+      opacity: 1;
+      cursor: pointer;
+      transition: opacity 0.2s, background 0.2s;
+      border: none;
+    }
+    .hero-slider-dot.active {
+      background: #ff5a1f;
+      border: none;
+      border-radius: 50% !important;
+    }
+    @media (max-width: 600px) {
+      .hero-slider-section {
+        min-height: 260px;
+        height: 38vh;
+      }
+      .hero-title {
+        font-size: 1.6rem;
+      }
+      .hero-desc {
+        font-size: 1rem;
+      }
+      .hero-btn {
+        padding: 10px 22px;
+        font-size: 1rem;
+      }
+      .hero-slider-nav {
+        width: 36px; height: 36px; font-size: 1.3rem;
+      }
+      .hero-slider-pagination {
+        bottom: 16px;
+      }
+    }
+    /* Giao diện giả lập mobile */
+    .view-mobile {
+      background: #f8f8f8;
+      width: 100vw;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .view-mobile main,
+    .view-mobile .main-mobile-wrapper {
+      width: 100vw;
+      max-width: 400px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      overflow: visible;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .view-mobile section,
+    .view-mobile .category-section,
+    .view-mobile .featured-section,
+    .view-mobile .beae-featured-collection-section,
+    .view-mobile .beae-featured-product-section,
+    .view-mobile .blog-section,
+    .view-mobile .service-info-section {
+        width: 100%;
+      max-width: 100%;
+      margin: 0;
+      left: 0;
+      right: 0;
+      box-sizing: border-box;
+      border-radius: 0;
+      background: #fff;
+      overflow: visible;
+      position: static;
+    }
+    /* Loại bỏ overflow-x/scroll riêng của từng section */
+    .view-mobile .category-grid,
+    .view-mobile .featured-slider,
+    .view-mobile .beae-featured-collection-list,
+    .view-mobile .blog-slider {
+      overflow-x: visible !important;
+      white-space: normal !important;
+      flex-wrap: wrap !important;
+      width: 100%;
+      max-width: 100%;
+      gap: 10px;
+    }
+    /* Card width full mobile */
+    .view-mobile .category-card,
+    .view-mobile .featured-card,
+    .view-mobile .beae-featured-collection-card,
+    .view-mobile .blog-card {
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      margin: 0 0 12px 0;
+    }
+    .view-mobile .hero-slider-section {
+      max-width: 400px;
+      min-width: 0;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    .view-mobile .switch-btn-group {
+      gap: 4px;
+    }
+    .view-mobile .beae-switch-btn--desktop,
+    .view-mobile .beae-switch-btn--mobile {
+      padding: 4px 8px;
+      font-size: 0.95rem;
+    }
+    .view-mobile .hero-slider-section {
+      /* border: 2px solid #ff5a1f; */
+      /* border-radius: 0 0 18px 18px; */
+      /* box-shadow: 0 2px 16px rgba(0,0,0,0.08); */
+      min-height: 320px;
+      height: 60vw;
+        overflow: hidden;
+      max-width: none;
+      margin: 0;
+      background: #fff;
+    }
+    .view-mobile .hero-slide {
+      min-width: 0;
+    }
+    .view-mobile .hero-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .view-mobile .hero-desc {
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+    .view-mobile .hero-btn {
+      padding: 8px 16px;
+      font-size: 0.95rem;
+    }
+    .view-mobile .hero-slider-dot {
+      width: 10px;
+      height: 10px;
+    }
+    .view-mobile .hero-slider-pagination {
+      bottom: 10px;
+      gap: 8px;
+    }
+    .view-mobile .hero-content {
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+    /* Đảm bảo không có thanh cuộn ngang */
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    /* Giao diện desktop trở lại bình thường */
+    .view-desktop .hero-slider-section,
+    .category-section {
+      width: 100%;
+      padding: 32px 0 0 0;
+      background: #fff;
+      box-sizing: border-box;
+    }
+    .category-grid {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      max-width: 1280px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .category-card {
+      position: relative;
+      width: 400px;
+      height: 280px;
+      border-radius: 8px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .category-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(40, 20, 20, 0.38);
+      z-index: 1;
+    }
+    .category-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      padding: 32px 24px 32px 24px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+    .category-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .category-desc {
+      font-size: 1.05rem;
+      margin-bottom: 24px;
+      font-weight: 400;
+      line-height: 1.5;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .category-btn {
+      display: inline-block;
+      background: #fff;
+      color: #ff5a1f;
+      padding: 12px 32px;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.2s, color 0.2s;
+    }
+    .category-btn:hover {
+      background: #ff5a1f;
+      color: #fff;
+    }
+    @media (max-width: 900px) {
+      .category-grid {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+      .category-card {
+        width: 95vw;
+        max-width: 400px;
+        height: 220px;
+      }
+      .category-content {
+        padding: 20px 12px 20px 12px;
+      }
+    }
+    .view-mobile .category-section {
+      padding: 16px 0 0 0;
+      width: 100vw;
+      max-width: 100vw;
+      margin: 0;
+      left: 0;
+      right: 0;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    .view-mobile .category-grid {
+      flex-direction: row;
+      gap: 14px;
+      align-items: stretch;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 0 8px 8px 8px;
+      box-sizing: border-box;
+      width: 100vw;
+      max-width: 100vw;
+      margin: 0;
+      left: 0;
+      right: 0;
+    }
+    .view-mobile .category-card {
+      flex: 0 0 auto;
+      width: 80vw;
+      max-width: 320px;
+      height: 160px;
+      margin-right: 0;
+      margin-left: 0;
+    }
+    .view-mobile .category-content {
+      padding: 10px 8px 10px 8px;
+    }
+    .view-mobile .category-title {
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+    .view-mobile .category-desc {
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+    }
+    .view-mobile .category-btn {
+      padding: 7px 18px;
+      font-size: 0.95rem;
+    }
+    .featured-section {
+      width: 100%;
+      background: #fff;
+      padding: 32px 0 0 0;
+      box-sizing: border-box;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+    .featured-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1280px;
+      margin: 0 auto 18px auto;
+      padding: 0;
+    }
+    .featured-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .featured-viewall {
+      color: #ff5a1f;
+      font-size: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .featured-viewall:hover {
+      color: #e04a0f;
+      text-decoration: underline;
+    }
+    .featured-slider-wrp {
+      position: relative;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .featured-slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      color: #ff5a1f;
+      border: 1px solid #ff5a1f;
+      border-radius: 50% !important;
+      width: 38px;
+      height: 38px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1002 !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: background 0.2s, color 0.2s, opacity 0.2s;
+      pointer-events: auto !important;
+      overflow: hidden;
+    }
+    .featured-slider-nav.left { left: 0; }
+    .featured-slider-nav.right { right: 0; }
+    .featured-slider-nav:hover {
+      background: #ff5a1f;
+      color: #fff;
+    }
+    .featured-slider-wrp:hover .featured-slider-nav {
+      opacity: 1;
+    }
+    .featured-slider {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      padding: 0 0 18px 0;
+      max-width: 1280px;
+      margin: 0 auto;
+      scroll-behavior: smooth;
+      width: 100%;
+    }
+    .featured-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 0;
+      min-width: 213px;
+      max-width: 213px;
+      width: 213px;
+      height: 360px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 16px 10px 16px;
+      box-sizing: border-box;
+      transition: box-shadow 0.2s, border 0.2s;
+      margin: 0;
+      border-right: 1px solid #e0e0e0;
+    }
+    .featured-card:last-child {
+      border-right: none;
+    }
+    .featured-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 2px 10px;
+      z-index: 2;
+    }
+    .featured-img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 0px;
+      background: #fafafa;
+      display: block;
+    }
+    .featured-info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .featured-vendor {
+      font-size: 1.05rem;
+      color: #888;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .featured-name {
+      font-size: 1rem;
+      font-weight: 300;
+      margin-bottom: 6px;
+      color: #222;
+    }
+    .featured-price-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .featured-price {
+      color: #ff5a1f;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .featured-price-old {
+      color: #888;
+      font-size: 1.1rem;
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+    .featured-stock {
+      display: flex;
+      align-items: center;
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .featured-stock .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50% !important;
+      margin-right: 6px;
+      background: #4caf50;
+      overflow: hidden;
+    }
+    .featured-stock.low .dot {
+      background: #ff2d2d;
+    }
+    .featured-stock.low {
+      color: #ff2d2d;
+    }
+    .featured-slider::-webkit-scrollbar {
+      height: 8px;
+      background: #f3f3f3;
+    }
+    .featured-slider::-webkit-scrollbar-thumb {
+      background: #eee;
+      border-radius: 4px;
+    }
+    @media (max-width: 900px) {
+      .featured-section {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      .featured-header, .featured-slider-wrp {
+        max-width: 100vw;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .featured-slider {
+        max-width: 100vw;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .featured-card {
+        min-width: 70vw;
+        max-width: 80vw;
+        padding: 14px 8px 8px 8px;
+      }
+      .featured-img {
+        height: 90px;
+      }
+    }
+    .view-mobile .featured-header, .view-mobile .featured-slider {
+      max-width: 100vw;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+    .view-mobile .featured-card {
+      min-width: 80vw;
+      max-width: 90vw;
+      padding: 10px 4px 6px 4px;
+    }
+    .view-mobile .featured-img {
+      height: 70px;
+    }
+    .featured-img-wrap {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Base quickview button style */
+    .quick-view-btn {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      background: #ff5a1f;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      height: 42px !important;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      z-index: 3;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0 20px;
+    }
+
+    .quick-view-btn:hover {
+      background: #e64d15;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateY(-1px);
+    }
+
+    /* Show button on hover for all card types */
+    .featured-card:hover .quick-view-btn,
+    .featured-card:focus-within .quick-view-btn,
+    .beae-featured-collection-card:hover .quick-view-btn,
+    .beae-featured-collection-card:focus-within .quick-view-btn {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Keep consistent styling on mobile */
+    @media (max-width: 900px) {
+      .quick-view-btn {
+        height: 42px !important;
+        font-size: 1.1rem;
+        padding: 0 20px;
+      }
+    }
+
+    .view-mobile .quick-view-btn {
+      height: 42px !important;
+      font-size: 1.1rem;
+      padding: 0 20px;
+    }
+    /* Quick View Modal (Beae style) */
+    .beae-next-popup {
+      display: none;
+      position: fixed;
+      left: 0; top: 0; right: 0; bottom: 0;
+      z-index: 10000;
+      align-items: flex-end;
+    }
+    .beae-next-popup.active { 
+      display: flex; 
+    }
+    .beae-popup__backdrop {
+      position: fixed; 
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.35); 
+      z-index: 1000;
+      cursor: pointer;
+    }
+    .beae-popup__wrapper { 
+      width: 100%;
+      max-height: 90vh;
+      display: flex; 
+      flex-direction: column;
+        position: relative;
+      z-index: 1001;
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      transform: translateY(100%);
+      transition: transform 0.3s ease-out;
+    }
+    .active .beae-popup__wrapper {
+      transform: translateY(0);
+    }
+    .beae-popup__body { 
+      flex: 1; 
+      position: relative; 
+      z-index: 1002; 
+      display: flex; 
+      flex-direction: column;
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      overflow: hidden;
+    }
+    .beae-popup__close {
+      position: absolute; 
+      top: 16px; 
+      right: 20px; 
+      background: none; 
+      border: none; 
+      font-size: 2rem; 
+      color: #222; 
+      z-index: 1003; 
+      cursor: pointer;
+    }
+    .beae-popup__header {
+      padding: 32px 32px 0 32px;
+      background: #fff;
+    }
+    .beae-popup__title {
+      font-size: 2rem; 
+      font-weight: 600; 
+      color: #222;
+    }
+    .beae-popup__main {
+      display: flex; 
+      gap: 32px; 
+      padding: 32px;
+      background: #fff;
+    }
+    .beae-popup__img-col {
+      flex: 1 1 40%; 
+      display: flex; 
+      align-items: flex-start; 
+      justify-content: center;
+      background: #fff;
+    }
+    .beae-popup__img-col img {
+      width: 180px; 
+      height: 180px; 
+      object-fit: contain; 
+      border-radius: 8px; 
+      background: #fafafa;
+    }
+    .beae-popup__info-col {
+      flex: 1 1 60%; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: flex-start;
+      background: #fff;
+    }
+    .beae-popup__info-col h3 {
+      font-size: 1.5rem; 
+      font-weight: 700; 
+      margin-bottom: 8px; 
+      color: #222;
+    }
+    .quickview-vendor { 
+      font-size: 1rem; 
+      color: #888; 
+      margin-bottom: 8px; 
+    }
+    .quickview-price-row { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      margin-bottom: 10px; 
+    }
+    .quickview-price { 
+      color: #ff5a1f; 
+      font-weight: 700; 
+      font-size: 1.1rem; 
+    }
+    .quickview-price-old { 
+      color: #888; 
+      font-size: 1rem; 
+      text-decoration: line-through; 
+      font-weight: 400; 
+    }
+    .quickview-sale-badge { 
+      background: #b73427; 
+      color: #fff; 
+      border-radius: 4px; 
+      padding: 2px 10px; 
+      font-size: 0.95rem; 
+      font-weight: 600; 
+    }
+    .quickview-desc { 
+      font-size: 1rem; 
+      color: #333; 
+      margin-bottom: 8px; 
+    }
+    .beae-product-view-detail { 
+      color: #f25922; 
+      text-decoration: none; 
+      font-weight: 600; 
+      margin-top: 8px; 
+    }
+    .beae-product-view-detail:hover { 
+      text-decoration: underline; 
+    }
+    .beae-popup__footer {
+      display: flex; 
+      align-items: center; 
+      gap: 18px;
+      padding: 0 32px 32px 32px; 
+      border-top: 1px solid #eee;
+      position: absolute; 
+      left: 0; right: 0; bottom: 0; 
+      background: #fff;
+      z-index: 1002;
+    }
+    .beae-quantity-wrapper {
+      display: flex; 
+      align-items: center; 
+      border: 1px solid #e4e4e4; 
+      border-radius: 0;
+      height: 48px;
+      overflow: hidden;
+    }
+    .beae-quantity-btn {
+      background: transparent; 
+      border: none; 
+      font-size: 1.5rem; 
+      width: 38px; 
+      height: 48px; 
+      cursor: pointer; 
+      color: #222;
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .beae-quantity-btn:hover { 
+      background: #f3f3f3; 
+      color: #f25922; 
+    }
+    .beae-quantity-btn:active {
+      background: #e9e9e9;
+    }
+    .beae-quantity-input {
+      width: 38px; 
+      text-align: center; 
+      border: none; 
+      font-size: 1rem; 
+      height: 48px;
+      -moz-appearance: textfield;
+      border-left: 1px solid #e4e4e4;
+      border-right: 1px solid #e4e4e4;
+    }
+    .beae-quantity-input::-webkit-outer-spin-button,
+    .beae-quantity-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .beae-btn-pr {
+      background: #f25922; 
+      color: #fff; 
+      border: none; 
+      border-radius: 0; 
+      padding: 14px 40px; 
+      font-size: 1rem; 
+      font-weight: 700; 
+      cursor: pointer; 
+      transition: background 0.2s;
+      flex: 1;
+    }
+    .beae-btn-pr:hover { 
+      background: #c63d0c; 
+    }
+    @media (max-width: 767px) {
+      .beae-popup__header, .beae-popup__main, .beae-popup__footer { padding: 16px 10px 0 10px; }
+      .beae-popup__main { flex-direction: column; gap: 10px; }
+      .beae-popup__img-col { justify-content: flex-start; }
+      .beae-popup__img-col img { width: 120px; height: 120px; }
+      .beae-popup__footer { flex-direction: column; gap: 10px; position: static; }
+    }
+    .beae-next-popup--container {
+      margin-left: auto;
+      width: 500px; max-width: 100vw;
+      height: 100vh; 
+      background: #fff !important;
+      display: flex; 
+      flex-direction: column;
+      box-shadow: 0 0 20px rgba(0,0,0,0.15);
+      position: relative;
+      animation: slideInRight 0.25s;
+      z-index: 1002;
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+    @media (max-width: 767px) {
+      .beae-next-popup--container {
+        width: 100vw; height: 85dvh; bottom: 0; right: 0; left: 0;
+        border-radius: 18px 18px 0 0;
+        animation: slideInUp 0.25s;
+      }
+      @keyframes slideInUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+    }
+    .beae-popup__backdrop {
+      position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.35); z-index: 1000;
+    }
+    /* Shop by category section */
+    .category-list-section {
+      width: 100%;
+      background: #fff;
+      padding: 32px 0 0 0;
+      box-sizing: border-box;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .category-list-header {
+      max-width: 1280px;
+      margin: 0 auto;
+      margin-bottom: 18px;
+    }
+
+    .category-list-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #000000;
+      margin: 0 0 18px 0;
+    }
+
+    .category-list-slider {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .category-list-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .category-list-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 280px;
+      min-width: 280px;
+      max-width: 280px;
+      text-decoration: none;
+      background: #fff;
+      border-radius: 8px;
+      transition: box-shadow 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #eee;
+      padding: 0 0 16px 0;
+      margin: 0;
+    }
+
+    .category-list-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px 8px 0 0;
+      background: #fafafa;
+    }
+
+    .category-list-label {
+      font-size: 1.1rem;
+      color: #3a2a2f;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 12px;
+      margin-bottom: 0;
+      padding: 0 12px;
+    }
+
+    .category-list-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    @media (max-width: 900px) {
+      .category-list-section {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 15px 0;
+      }
+
+      .category-list-slider {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 15px;
+        padding: 0 15px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .category-list-card {
+        flex: 0 0 200px;
+        min-width: 200px;
+        width: 200px;
+        scroll-snap-align: start;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+
+      .category-list-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      /* Hide scrollbar but keep functionality */
+      .category-list-slider::-webkit-scrollbar {
+        display: none;
+      }
+      
+      .category-list-slider {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .category-list-section {
+        padding: 12px 0;
+      }
+
+      .category-list-slider {
+        gap: 12px;
+        padding: 0 12px;
+      }
+
+      .category-list-card {
+        flex: 0 0 180px;
+        min-width: 180px;
+        width: 180px;
+      }
+
+      .category-list-card img {
+        height: 180px;
+      }
+
+      .category-list-label {
+        font-size: 0.9rem;
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+    }
+    /* Shop by top brands section */
+    .brand-list-section {
+      width: 100%;
+      background: #fff;
+      padding: 32px 0 0 0;
+      box-sizing: border-box;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .brand-list-header {
+      max-width: 1280px;
+      margin: 0 auto;
+      margin-bottom: 18px;
+    }
+
+    .brand-list-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #000000;
+      margin: 0 0 18px 0;
+    }
+
+    .brand-list-table {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      border: 1px solid #e0e0e0;
+      border-radius: 2px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .brand-list-cell {
+      flex: 1 1 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      min-height: 45px;
+      padding: 18px 0;
+      border-right: 1px solid #e0e0e0;
+      background: #fff;
+    }
+
+    .brand-list-cell:last-child {
+      border-right: none;
+    }
+
+    .brand-list-cell img {
+      max-width: 120px;
+      max-height: 40px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+        display: block;
+    }
+
+    @media (max-width: 900px) {
+      .brand-list-section {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 15px 0;
+      }
+
+      .brand-list-table {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 15px;
+        padding: 0 15px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        border: none;
+      }
+
+      .brand-list-cell {
+        flex: 0 0 200px;
+        min-width: 200px;
+        width: 200px;
+        height: 120px;
+        margin: 0;
+        scroll-snap-align: start;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .brand-list-cell img {
+        max-width: 100%;
+        max-height: 80px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+      }
+
+      /* Hide scrollbar but keep functionality */
+      .brand-list-table::-webkit-scrollbar {
+        display: none;
+      }
+      
+      .brand-list-table {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .brand-list-section {
+        padding: 12px 0;
+      }
+
+      .brand-list-table {
+        gap: 12px;
+        padding: 0 12px;
+      }
+
+      .brand-list-cell {
+        flex: 0 0 180px;
+        min-width: 180px;
+        width: 180px;
+        height: 100px;
+        padding: 15px;
+      }
+
+      .brand-list-cell img {
+        max-height: 70px;
+      }
+
+      .brand-list-title {
+        font-size: 1.3rem;
+        margin: 0 0 12px 12px;
+      }
+    }
+    /* Featured Collection (Beae style) Section */
+    .beae-featured-collection-section {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: #fff;
+      margin: 30px 0;
+      padding: 0 18px;
+    }
+    .beae-featured-collection-container {
+      display: flex;
+      max-width: 1280px;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        margin: 0 auto;
+    }
+    .beae-featured-collection-info {
+      background: #3a2929;
+      color: #fff;
+      padding: 36px 32px 15px 32px;
+      min-width: 320px;
+      max-width: 340px;
+        display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    .beae-featured-collection-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .beae-featured-collection-desc {
+      font-size: 1rem;
+      margin-bottom: 28px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .beae-featured-collection-btn {
+      display: inline-block;
+      background: #ff5a1f;
+      color: #fff;
+      padding: 12px 32px;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .beae-featured-collection-btn:hover {
+      background: #e04a0f;
+    }
+    .beae-featured-collection-list {
+      display: flex;
+      flex: 1;
+      gap: 0;
+      background: #fff;
+      border-left: 1px solid #eee;
+    }
+    .beae-featured-collection-card {
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 213px;
+      width: 213px;
+      height: 360px;
+      border-right: 1px solid #e0e0e0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 16px 10px 16px;
+      box-sizing: border-box;
+      position: relative;
+      transition: box-shadow 0.2s, border 0.2s;
+      margin: 0;
+    }
+    .beae-featured-collection-card:last-child {
+      border-right: none;
+    }
+    .beae-featured-collection-badge {
+        position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 2px 10px;
+      z-index: 2;
+    }
+    .beae-featured-collection-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 0px;
+      background: #fafafa;
+      display: block;
+    }
+    .beae-featured-collection-card-info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .beae-featured-collection-vendor {
+      font-size: 1.05rem;
+      color: #888;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .beae-featured-collection-name {
+      font-size: 1rem;
+      font-weight: 200;
+      margin-bottom: 6px;
+      color: #222;
+    }
+    .beae-featured-collection-price-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .beae-featured-collection-price {
+      color: #ff5a1f;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .beae-featured-collection-price-old {
+      color: #888;
+      font-size: 1rem;
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+    .beae-featured-collection-stock {
+      display: flex;
+      align-items: center;
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .beae-featured-collection-stock .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50% !important;
+      margin-right: 6px;
+      background: #4caf50;
+        overflow: hidden;
+    }
+    .beae-featured-collection-stock.low .dot {
+      background: #ff2d2d;
+    }
+    .beae-featured-collection-stock.low {
+      color: #ff2d2d;
+    }
+    .featured-slider::-webkit-scrollbar {
+      height: 8px;
+      background: #f3f3f3;
+    }
+    .featured-slider::-webkit-scrollbar-thumb {
+      background: #eee;
+      border-radius: 4px;
+    }
+    @media (max-width: 900px) {
+      .beae-featured-collection-section {
+        margin: 15px 0;
+        padding: 0 8px;
+      }
+      .beae-featured-collection-container {
+        flex-direction: column;
+        max-width: 100vw;
+        padding: 0;
+      }
+      .beae-featured-collection-info {
+        min-width: 0;
+        max-width: none;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+        padding: 24px 10px 15px 10px;
+      }
+      .beae-featured-collection-list {
+        flex-direction: row;
+        overflow-x: auto;
+        border-left: none;
+        border-top: 1px solid #eee;
+      }
+      .beae-featured-collection-card {
+        min-width: 70vw;
+        max-width: 80vw;
+        padding: 14px 8px 8px 8px;
+      }
+      .beae-featured-collection-card img {
+        height: 90px;
+      }
+    }
+    /* fix missing css featured.img*/
+    .beae-featured-img-wrap {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .beae-featured-img-wrap .quick-view-btn {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      background: #ff5a1f;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      height: 42px !important;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      z-index: 3;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0 20px;
+    }
+    .beae-featured-collection-card:hover .quick-view-btn,
+    .beae-featured-collection-card:focus-within .quick-view-btn {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (max-width: 900px) {
+      .beae-featured-img-wrap .quick-view-btn {
+        opacity: 1;
+        pointer-events: auto;
+        font-size: 0.92rem;
+        padding: 5px 14px;
+        height: 22.4px !important;
+      }
+    }
+    .beae-featured-product-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: stretch;
+    }
+    /* Gallery */
+    .beae-featured-product-gallery {
+      flex: 1 1 340px;
+      min-width: 320px;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .beae-featured-product-slider {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 340px;
+      max-width: 340px;
+    }
+    .beae-featured-product-slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s, transform 0.4s;
+      transform: translateX(100%);
+      z-index: 1;
+    }
+    .beae-featured-product-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+      z-index: 2;
+    }
+    .beae-featured-product-slide.slide-out-left {
+      opacity: 0;
+      transform: translateX(-100%);
+      z-index: 1;
+    }
+    .beae-featured-product-slide.slide-in-right {
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 2;
+    }
+    .beae-featured-product-slide.slide-in-left {
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 2;
+    }
+    .beae-featured-product-slide.slide-out-right {
+      opacity: 0;
+      transform: translateX(100%);
+      z-index: 1;
+    }
+    .beae-featured-product-thumbs {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      justify-content: center;
+    }
+    .beae-featured-product-thumb {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 2px solid #eee;
+      cursor: pointer;
+    }
+    .beae-featured-product-thumb.active {
+      border: 2px solid #ff5a1f;
+    }
+    /* Info */
+    .beae-featured-product-info {
+      flex: 2 1 340px;
+      min-width: 320px;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .beae-featured-product-label {
+      color: #ff5a1f;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .beae-featured-product-vendor {
+      color: #888;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .beae-featured-product-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #222;
+    }
+    .beae-featured-product-price-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .beae-featured-product-price {
+      color: #ff5a1f;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .beae-featured-product-price-old {
+      color: #888;
+      font-size: 1.1rem;
+      text-decoration: line-through;
+    }
+    .beae-featured-product-desc {
+      font-size: 1.05rem;
+      color: #333;
+      margin-bottom: 14px;
+    }
+    .beae-featured-product-variants {
+      margin-bottom: 14px;
+    }
+    .beae-featured-product-variant {
+      width: 36px;
+      height: 36px;
+      border: 2px solid #eee;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .beae-featured-product-variant.active {
+      border: 2px solid #222;
+    }
+    .beae-featured-product-variant span {
+      display: block;
+      width: 28px;
+      height: 28px;
+      background-color: var(--beae-color-variant);
+    }
+    .beae-featured-product-atc-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .beae-btn-pr {
+      background: #ff5a1f;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .beae-btn-se {
+      background: #fff;
+      color: #ff5a1f;
+      border: 2px solid #ff5a1f;
+      border-radius: 4px;
+      padding: 12px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .beae-featured-product-share {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .beae-featured-product-share span {
+      font-size: 1rem;
+      color: #222;
+      font-weight: 600;
+    }
+    .beae-featured-product-share a {
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease;
+    }
+    .beae-featured-product-share a:hover {
+      opacity: 0.8;
+    }
+    .beae-featured-product-share img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+    .beae-aboutus-section {
+      width: 100%;
+      background: #fff;
+      padding: 32px 0 0 0;
+      box-sizing: border-box;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .beae-aboutus-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .beae-aboutus-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 18px;
+    }
+
+    .beae-aboutus-desc {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 18px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Our Blog Section */
+    .blog-section {
+      width: 100%;
+      background: #fff;
+      padding: 32px 0 0 0;
+      box-sizing: border-box;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .blog-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .blog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .blog-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .blog-viewall {
+      color: #ff5a1f;
+      font-size: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .blog-slider {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .blog-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      min-width: 300px;
+      max-width: 320px;
+      width: 100%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .blog-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .blog-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .blog-description {
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 10px;
+      flex: 1;
+    }
+
+    .blog-readmore {
+      color: #ff5a1f;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* Service Info Section */
+    .service-info-section {
+      width: 100%;
+      background: #fff;
+      padding: 32px 0 0 0;
+      box-sizing: border-box;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .service-info-grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    .service-info-item {
+      flex: 1 1 0;
+      min-width: 220px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 0 18px;
+      margin-bottom: 18px;
+    }
+
+    .service-info-item span {
+      font-size: 2.1rem;
+      color: #222;
+      margin-right: 8px;
+      display: flex;
+      align-items: center;
+    }
+    .service-info-item div {
+      font-size: 1rem;
+      color: #525252;
+    }
+    @media (max-width: 600px) {
+      .view-mobile .featured-section,
+      .view-mobile .featured-slider-wrp,
+      .view-mobile .featured-slider {
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
+        box-sizing: border-box;
+      }
+      .view-mobile .featured-slider-wrp {
+        padding: 0;
+        position: relative;
+      }
+      .view-mobile .featured-slider {
+        display: flex;
+        flex-direction: row;
+        gap: 0;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .view-mobile .featured-card {
+        flex: 0 0 90vw;
+        min-width: 90vw;
+        max-width: 90vw;
+        height: auto;
+        padding: 10px 0 10px 0;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        scroll-snap-align: start;
+        background: #fff;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .view-mobile .featured-card:first-child {
+        margin-left: 5vw;
+      }
+      .view-mobile .featured-card:last-child {
+        margin-right: 5vw;
+      }
+      .view-mobile .featured-img {
+        height: 120px;
+        border-radius: 8px;
+        width: 100%;
+        object-fit: contain;
+        margin-bottom: 8px;
+      }
+      .view-mobile .featured-info {
+        gap: 4px;
+        width: 100%;
+      }
+      .view-mobile .featured-title {
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+      }
+      .view-mobile .featured-vendor {
+        font-size: 0.98rem;
+        margin-bottom: 2px;
+      }
+      .view-mobile .featured-name {
+        font-size: 1.08rem;
+        margin-bottom: 4px;
+      }
+      .view-mobile .featured-price-row {
+        gap: 6px;
+        margin-bottom: 4px;
+      }
+      .view-mobile .featured-price {
+        font-size: 1.08rem;
+      }
+      .view-mobile .featured-price-old {
+        font-size: 0.98rem;
+      }
+      .view-mobile .featured-stock {
+        font-size: 0.95rem;
+        margin-top: 2px;
+      }
+      .view-mobile .quick-view-btn {
+        opacity: 1;
+        pointer-events: auto;
+        font-size: 1rem;
+        padding: 8px 0;
+        height: 36px;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        border-radius: 8px;
+      }
+      .view-mobile .featured-slider-nav {
+        display: none !important;
+      }
+      .view-mobile .featured-slider::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    /* --- MOBILE VIEW IMPROVEMENTS FOR EACH SECTION --- */
+    @media (max-width: 600px) {
+      /* Header */
+      .header {
+        padding: 0 4vw;
+        height: 48px;
+      }
+      .header-btn {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+        min-width: 0;
+      }
+      .header-main-logo, .header-menu {
+        width: 28px !important;
+        height: 28px !important;
+      }
+      .switch-btn-group {
+        gap: 2px;
+      }
+
+      /* Hero Section */
+      .hero-slider-section {
+        min-height: 180px;
+        height: 32vh;
+        padding: 0;
+      }
+      .hero-title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+      }
+      .hero-desc {
+        font-size: 0.92rem;
+        margin-bottom: 10px;
+        padding: 0 6px;
+      }
+      .hero-btn {
+        padding: 7px 12px;
+        font-size: 0.95rem;
+      }
+      .hero-slider-dot {
+        width: 8px;
+        height: 8px;
+      }
+      .hero-slider-pagination {
+        bottom: 6px;
+        gap: 4px;
+      }
+
+      /* Category Section */
+      .category-section {
+      width: 100%;
+      background: #fff;
+      padding: 32px 0 0 0;
+      box-sizing: border-box;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+    .category-grid {
+        flex-direction: row;
+        gap: 8px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 0 4px 6px 4px;
+        width: 100vw;
+        max-width: 100vw;
+      }
+      .category-card {
+        flex: 0 0 auto;
+        width: 78vw;
+        max-width: 260px;
+        height: 120px;
+        margin: 0;
+      }
+      .category-content {
+        padding: 6px 4px 6px 4px;
+      }
+      .category-title {
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+      .category-desc {
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+      }
+      .category-btn {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+      }
+
+      /* Featured Collection Section (Beae style) */
+      .beae-featured-collection-section {
+        width: 100%;
+        background: #fff;
+        padding: 32px 0 0 0;
+        box-sizing: border-box;
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+      .beae-featured-collection-container {
+        flex-direction: column;
+        max-width: 100vw;
+        padding: 0;
+      }
+      .beae-featured-collection-info {
+        min-width: 0;
+        max-width: none;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+        padding: 12px 4px;
+      }
+      .beae-featured-collection-title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+      }
+      .beae-featured-collection-desc {
+        font-size: 0.92rem;
+        margin-bottom: 10px;
+      }
+      .beae-featured-collection-btn {
+        padding: 7px 16px;
+        font-size: 0.95rem;
+      }
+      .beae-featured-collection-list {
+        flex-direction: row;
+        overflow-x: auto;
+        border-left: none;
+        border-top: 1px solid #eee;
+        gap: 6px;
+      }
+      .beae-featured-collection-card {
+        min-width: 78vw;
+        max-width: 85vw;
+        padding: 8px 2px 6px 2px;
+      }
+      .beae-featured-collection-card img {
+        height: 60px;
+      }
+
+      /* Featured Product Section */
+      .beae-featured-product-container {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .beae-featured-product-gallery {
+        flex-direction: row;
+        justify-content: center;
+        min-width: 0;
+        max-width: 100vw;
+        gap: 8px;
+      }
+      .beae-featured-product-slider {
+        height: 120px;
+        max-width: 90vw;
+      }
+      .beae-featured-product-thumb {
+        width: 36px;
+        height: 36px;
+      }
+      .beae-featured-product-info {
+        padding-left: 0;
+        padding-right: 0;
+        min-width: 0;
+        max-width: 100vw;
+      }
+      .beae-featured-product-title {
+        font-size: 1.1rem;
+      }
+      .beae-featured-product-price-row {
+        gap: 6px;
+      }
+      .beae-featured-product-desc {
+        font-size: 0.92rem;
+      }
+
+      .beae-featured-product-atc-row {
+        gap: 6px;
+      }
+      .beae-btn-pr, .beae-btn-se {
+        padding: 7px 12px;
+        font-size: 0.95rem;
+      }
+
+      /* Blog Section */
+      .blog-section {
+        width: 100%;
+        background: #fff;
+        padding: 32px 0 0 0;
+        box-sizing: border-box;
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+      .blog-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .blog-slider {
+        gap: 6px;
+        overflow-x: auto;
+      }
+      .blog-card {
+        min-width: 90vw;
+        max-width: 95vw;
+      }
+      .blog-image {
+        height: 90px;
+      }
+
+      /* Recently Viewed Section (same as featured) */
+      .recently-viewed-section .featured-slider,
+      .featured-section .featured-slider {
+        gap: 8px;
+        display: flex;
+        overflow-x: auto;
+        padding: 0 12px;
+        margin: 0 -12px;
+      }
+
+      .recently-viewed-section .featured-card,
+      .featured-section .featured-card {
+        flex: 0 0 200px;
+        min-width: 200px;
+        max-width: 200px;
+        margin: 0;
+      }
+      
+      .recently-viewed-section .featured-img-wrap img,
+      .featured-section .featured-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 10px;
+        background: #fff;
+      }
+      
+      .recently-viewed-section .featured-img-wrap,
+      .featured-section .featured-img-wrap {
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Hide scrollbar but keep functionality */
+      .recently-viewed-section .featured-slider::-webkit-scrollbar,
+      .featured-section .featured-slider::-webkit-scrollbar {
+        display: none;
+      }
+      
+      .recently-viewed-section .featured-slider,
+      .featured-section .featured-slider {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .recently-viewed-section .featured-info,
+      .featured-section .featured-info {
+        padding: 10px;
+      }
+
+      .recently-viewed-section .featured-vendor,
+      .featured-section .featured-vendor {
+        font-size: 0.9rem;
+      }
+
+      .recently-viewed-section .featured-name,
+      .featured-section .featured-name {
+        font-size: 1rem;
+        margin: 4px 0;
+      }
+
+      .recently-viewed-section .featured-price,
+      .featured-section .featured-price {
+        font-size: 1rem;
+      }
+
+      .recently-viewed-section .featured-price-old,
+      .featured-section .featured-price-old {
+        font-size: 0.9rem;
+      }
+      .recently-viewed {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 15px 0;
+      }
+
+      .recently-list {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 15px;
+        padding: 0 15px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .recently-list .product-card {
+        flex: 0 0 300px;
+        min-width: 300px;
+        width: 300px;
+        margin: 0;
+        scroll-snap-align: start;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+
+      .recently-list .product-card img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+      }
+
+      /* Hide scrollbar but keep functionality */
+      .recently-list::-webkit-scrollbar {
+        display: none;
+      }
+      
+      .recently-list {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+          @media (max-width: 576px) {
+      /* Featured Collection Mobile Fixes */
+      .beae-featured-collection-list {
+        display: flex;
+        overflow-x: auto;
+        gap: 12px;
+        padding: 0 12px;
+        margin: 0 -12px;
+      }
+      
+      .beae-featured-collection-card {
+        flex: 0 0 200px;
+        min-width: 200px;
+        max-width: 200px;
+        margin: 0;
+      }
+
+      .beae-featured-collection-card .beae-featured-img-wrap {
+        width: 100%;
+        height: 200px;
+        position: relative;
+      }
+
+      .beae-featured-collection-card .beae-featured-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 10px;
+        background: #fff;
+      }
+
+      .beae-featured-collection-card .beae-featured-img-wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+      .beae-featured-collection-card .quick-view-btn {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        transform: none;
+        opacity: 0;
+        pointer-events: none;
+        height: 42px !important;
+        font-size: 1.1rem;
+        padding: 0 20px;
+        border-radius: 8px;
+      }
+
+      .beae-featured-collection-card:hover .quick-view-btn {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* Hide scrollbar but keep functionality */
+      .beae-featured-collection-list::-webkit-scrollbar {
+        display: none;
+      }
+      
+      .beae-featured-collection-list {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Original mobile styles */
+      .recently-viewed {
+        padding: 12px 0;
+      }
+
+        .recently-list {
+          gap: 12px;
+          padding: 0 12px;
+        }
+
+        .recently-list .product-card {
+          flex: 0 0 280px;
+          min-width: 280px;
+          width: 280px;
+        }
+
+        .recently-list .product-card img {
+          height: 280px;
+        }
+
+        .recently-list .product-card .brand {
+          font-size: 0.85rem;
+        }
+
+        .recently-list .product-card .name {
+          font-size: 1rem;
+          margin: 6px 0;
+        }
+
+        .recently-list .product-card .price {
+          font-size: 1.1rem;
+        }
+
+        .recently-list .product-card .stock {
+          font-size: 0.85rem;
+          margin-top: 6px;
+        }
+      }
+
+      /* Service Info Section */
+      .service-info-grid {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .service-info-item {
+        flex-direction: row;
+        align-items: center;
+        padding: 0 4px;
+        margin-bottom: 8px;
+      }
+      .service-info-item span {
+        font-size: 1.2rem;
+        margin-right: 4px;
+      }
+      .service-info-item div {
+        font-size: 0.92rem;
+      }
+    }
+    /* --- END MOBILE VIEW IMPROVEMENTS --- */
+
+    button {
+      pointer-events: auto !important;
+    }
+
+    * {
+      border-radius: 0 !important;
+    }
+    
+    /* Circular elements */
+    .hero-slider-dot,
+    .featured-slider-nav,
+    .hero-slider-nav,
+    .featured-stock .dot,
+    .beae-featured-collection-stock .dot {
+      border-radius: 50% !important;
+      overflow: hidden;
+    }
+
+    /* Base styles for category section */
+    .category-section {
+        width: 100%;
+        padding: 32px 0 0 0;
+        background: #fff;
+        box-sizing: border-box;
+    }
+    
+    .category-grid {
+        display: flex;
+        gap: 32px;
+        justify-content: center;
+        max-width: 1280px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+    }
+    
+    .category-card {
+        position: relative;
+        width: 400px;
+        height: 280px;
+        border-radius: 8px;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: flex-end;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Mobile styles for category section */
+    @media (max-width: 900px) {
+        .category-section {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 15px 0;
+        }
+        
+        .category-grid {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 15px;
+            padding: 0 15px;
+            justify-content: flex-start;
+            max-width: none;
+            margin: 0;
+        }
+        
+        .category-card {
+            flex: 0 0 300px;
+            min-width: 300px;
+            width: 300px;
+            height: 200px;
+            margin: 0;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .category-section::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-section {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .category-section {
+            padding: 10px 0;
+        }
+        
+        .category-grid {
+            gap: 12px;
+            padding: 0 12px;
+        }
+        
+        .category-card {
+            flex: 0 0 260px;
+            min-width: 260px;
+            width: 260px;
+            height: 180px;
+        }
+
+        .category-content {
+            padding: 15px;
+        }
+
+        .category-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .category-desc {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Featured Product Section Styles */
+.beae-featured-product-section {
+  width: 100%;
+  background: #fff;
+  padding: 32px 0 0 0;
+  box-sizing: border-box;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.beae-featured-product-header {
+  max-width: 1280px;
+  margin: 0 auto 24px auto;
+}
+
+.beae-featured-product-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+
+.beae-featured-product-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+/* Desktop Thumbnails */
+.beae-featured-product-thumbs {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.beae-featured-product-thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.beae-featured-product-thumb.active {
+  border-color: #ff5a1f;
+}
+
+.beae-featured-product-thumb:hover {
+  border-color: #ff5a1f;
+  opacity: 0.8;
+}
+
+    /* Mobile styles for Featured Product Section */
+    @media (max-width: 768px) {
+      .beae-featured-product-section {
+        padding: 0 15px;
+        margin: 20px auto;
+      }
+
+      .beae-featured-product-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .beae-featured-product-gallery {
+        width: 100%;
+        max-width: 400px;
+    }
+
+      .beae-featured-product-slider {
+        width: 100%;
+        aspect-ratio: 1;
+        position: relative;
+      }
+
+      .beae-featured-product-main-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .beae-featured-product-thumbs {
+        display: none; /* Hide thumbnails on mobile */
+      }
+
+      .beae-featured-product-colors {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        background: rgba(255,255,255,0.9);
+        padding: 8px 16px;
+        border-radius: 20px;
+      }
+
+      .beae-featured-product-color-btn {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        cursor: pointer;
+        padding: 0;
+        position: relative;
+      }
+
+      .beae-featured-product-color-btn[data-color="natural"] {
+        background: #E5C49D;
+      }
+
+      .beae-featured-product-color-btn[data-color="black"] {
+        background: #000;
+      }
+
+      .beae-featured-product-color-btn.active::after {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border: 2px solid #ff5a1f;
+        border-radius: 50%;
+      }
+
+      .beae-featured-product-info {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+      }
+
+      .beae-featured-product-vendor {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      .beae-featured-product-title {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+      }
+
+      .beae-featured-product-price-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .beae-featured-product-price {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #ff5a1f;
+      }
+
+      .beae-featured-product-price-old {
+        font-size: 1.2rem;
+        color: #999;
+        text-decoration: line-through;
+      }
+
+      .beae-featured-product-desc {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #666;
+        margin-bottom: 24px;
+        padding: 0 15px;
+      }
+
+      .beae-featured-product-color-select {
+        margin-bottom: 24px;
+      }
+
+      .beae-featured-product-add-cart,
+      .beae-featured-product-buy-now {
+        width: 100%;
+        height: 48px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        cursor: pointer;
+      }
+
+      .beae-featured-product-add-cart {
+        background: #ff5a1f;
+        color: #fff;
+      }
+
+      .beae-featured-product-buy-now {
+        background: #1a1a1a;
+        color: #fff;
+      }
+
+      .beae-featured-product-more-payment {
+        color: #666;
+        margin-bottom: 24px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .beae-featured-product-share {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        color: #666;
+      }
+
+      .beae-featured-product-share a {
+        color: #666;
+        text-decoration: none;
+        font-size: 1.2rem;
+      }
+    }
+
+    @font-face {
+      font-family: 'WF Visual Sans';
+      src: url('https://beae.com/cdn/shop/t/9/assets/672e3097d900363b41f6eeb8_WFVisualSans-SemiBoldText.woff2?v=170853305297620793551739353905') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* Apply the font to headings */
+    .featured-title,
+    .beae-featured-collection-title,
+    .beae-featured-product-title,
+    .beae-featured-product-vendor,
+    .category-title,
+    .hero-title {
+      font-family: 'WF Visual Sans', sans-serif;
+    }
+
+    /* Adjust specific heading styles */
+    .featured-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .beae-featured-collection-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .beae-featured-product-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .beae-featured-product-vendor {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .category-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .featured-title {
+        font-size: 1.6rem;
+      }
+
+      .beae-featured-collection-title {
+        font-size: 1.8rem;
+      }
+
+      .beae-featured-product-title {
+        font-size: 1.8rem;
+      }
+
+      .hero-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    @font-face {
+      font-family: 'wf';
+      src: url('font/wf.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* Base styles */
+    html, body {
+      padding: 0;
+      font-size: 16px;
+      font-family: wf, Arial, sans-serif;
+      text-rendering: geometricPrecision;
+      -moz-font-smoothing: antialiased;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: 0;
+    }
+
+    /* Container styles */
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .w-container {
+      width: 1400px;
+      max-width: 94vw;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Text styles */
+    .font-medium {
+      letter-spacing: .025rem;
+    }
+
+    .text-xss {
+      font-size: .815rem;
+      line-height: 1.05rem;
+    }
+
+    .text-bm {
+      font-size: .9rem;
+      line-height: 1.35rem;
+    }
+
+    /* Section styles */
+    section {
+      max-width: 100vw;
+    }
+
+    @media screen and (min-width: 1440px) {
+      section:not(.full-width) {
+        max-width: 1740px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      section.shopify-section {
+        max-width: 100vw;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .w-container {
+        width: 100%;
+        max-width: 100vw;
+        margin: 0 auto;
+      }
+    }
+
+    /* Payment buttons */
+    .shopify-payment-button__button {
+      height: clamp(25px, var(--shopify-accelerated-checkout-button-block-size, 44px), 55px);
+      min-height: clamp(25px, var(--shopify-accelerated-checkout-button-block-size, 44px), 55px);
+      border-radius: var(--shopify-accelerated-checkout-button-border-radius, 0px);
+        width: 100%;
+      border: none;
+      box-shadow: 0 0 0 0 transparent;
+      color: #fff;
+      cursor: pointer;
+      display: block;
+      font-size: 1em;
+      font-weight: 500;
+      line-height: 1;
+      text-align: center;
+      transition: background .2s ease-in-out;
+    }
+
+    .shopify-payment-button__button--unbranded {
+      background-color: #1990c6;
+      padding: 1em 2em;
+    }
+
+    .shopify-payment-button__button--unbranded:hover:not([disabled]) {
+      background-color: #136f99;
+    }
+
+    .shopify-payment-button__more-options {
+      background: transparent;
+      border: 0 none;
+      cursor: pointer;
+      display: block;
+      font-size: 1em;
+      margin-top: 1em;
+      text-align: center;
+      text-decoration: underline;
+        width: 100%;
+    }
+
+    /* Button states */
+    .shopify-payment-button__button[disabled] {
+      opacity: .6;
+      cursor: default;
+    }
+
+    .shopify-payment-button__button--hidden {
+      visibility: hidden;
+    }
+
+    /* Loading state */
+    .shopify-payment-button__button.button.loading {
+      position: relative;
+      color: transparent;
+    }
+
+    .shopify-payment-button__button.button.loading > .loading-overlay__spinner {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      height: 100%;
+        display: flex;
+      align-items: center;
+    }
+
+    .shopify-payment-button__button .loading-overlay__spinner {
+      width: 1.8rem;
+      display: inline-block;
+    }
+
+    /* Spinner animation */
+    @keyframes shopify-rotator {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(270deg); }
+    }
+
+    .shopify-payment-button__button .spinner {
+      animation: shopify-rotator 1.4s linear infinite;
+    }
+
+    .shopify-payment-button__button .path {
+      stroke-dasharray: 280;
+      stroke-dashoffset: 0;
+      transform-origin: center;
+      stroke: #121212;
+      animation: shopify-dash 1.4s ease-in-out infinite;
+    }
+
+    @keyframes shopify-dash {
+      0% {
+        stroke-dashoffset: 280;
+      }
+      50% {
+        stroke-dashoffset: 75;
+        transform: rotate(135deg);
+      }
+      100% {
+        stroke-dashoffset: 280;
+        transform: rotate(450deg);
+      }
+    }
+
+    @media screen and (forced-colors: active) {
+      .shopify-payment-button__button .path {
+        stroke: CanvasText;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <img class="header-main-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTim3lLOH1YXW2qgM9-4bgCv_J52nl3a4bIJw&s" alt="Logo" />
+      <button class="mobile-menu-close" id="mobileMenuClose">×</button>
+    </div>
+    <nav class="mobile-menu-nav">
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">Collections</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+
+  <!-- ĐÃ XÓA THANH HEADER Ở ĐÂY -->
+
+  <!-- Hero Slider Section -->
+  <section class="hero-slider-section">
+    <div class="hero-slider" id="heroSlider">
+      <!-- Slide 1: Video -->
+      <div class="hero-slide active">
+        <div class="hero-bg hero-bg-video">
+          <video src="https://app.beae.com/storage/tasks/2188/bc3e10fa7b7141008f3f824e24bdcd8f.mp4" autoplay muted loop playsinline></video>
+        </div>
+        <div class="hero-content">
+          <h2 class="hero-title">Upgrade your living room</h2>
+          <p class="hero-desc">Revamp your living space with our exclusive sale! From plush sofas to elegant coffee tables, discover unbeatable deals on living room furniture.</p>
+          <a href="#" class="hero-btn">Shop now</a>
+        </div>
+      </div>
+      <!-- Slide 2: Image -->
+      <div class="hero-slide">
+        <div class="hero-bg" style="background-image: url('https://app.beae.com/storage/tasks/2188/pexels-zvolskiy-2082087_(1).jpg');"></div>
+        <div class="hero-content">
+          <h2 class="hero-title">Send and save</h2>
+          <p class="hero-desc">Huge Savings! Get ready to transform your space with our exclusive 50% off sale</p>
+          <a href="#" class="hero-btn">Shop now</a>
+        </div>
+      </div>
+      <!-- Slider Pagination -->
+      <div class="hero-slider-pagination">
+        <span class="hero-slider-dot active" data-slide="0"></span>
+        <span class="hero-slider-dot" data-slide="1"></span>
+      </div>
+    </div>
+  </section>
+  <!-- Category Section -->
+  <section class="category-section">
+    <div class="category-grid">
+      <!-- Dining room -->
+      <div class="category-card" style="background-image: url('https://app.beae.com/storage/tasks/2188/Dining_Room_b89482ca-1b83-4365-b79e-676827996eff.jpg');">
+        <div class="category-overlay"></div>
+        <div class="category-content">
+          <h3 class="category-title">Dining room</h3>
+          <p class="category-desc">From elegant dining chairs to stylish tables, discover unbeatable deals on everything you need</p>
+          <a href="#" class="category-btn">Shop now</a>
+        </div>
+      </div>
+      <!-- Bedroom -->
+      <div class="category-card" style="background-image: url('https://app.beae.com/storage/tasks/2188/ss_2358698255.jpg');">
+        <div class="category-overlay"></div>
+        <div class="category-content">
+          <h3 class="category-title">Bedroom</h3>
+          <p class="category-desc">From modern platform beds to elegant dressers, discover unbeatable deals on everything you need</p>
+          <a href="#" class="category-btn">Shop now</a>
+        </div>
+      </div>
+      <!-- Living room -->
+      <div class="category-card" style="background-image: url('https://app.beae.com/storage/tasks/2188/shutterstock_2301549541.jpg');">
+        <div class="category-overlay"></div>
+        <div class="category-content">
+          <h3 class="category-title">Living room</h3>
+          <p class="category-desc">Limited time only—shop now and create your perfect gathering spot!</p>
+          <a href="#" class="category-btn">Shop now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Featured Collection Section -->
+  <section class="featured-section">
+    <div class="featured-header">
+      <h2 class="featured-title">Featured Collection</h2>
+      <a href="#" class="featured-viewall">View all</a>
+    </div>
+    <div class="featured-slider-wrp">
+      <button class="featured-slider-nav left" aria-label="Previous">&#10094;</button>
+      <div class="featured-slider">
+        <!-- Product 1 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-ETH-BOK-OAK-180-1.jpg","name":"Dining Table","vendor":"BURROW","price":"$1,699.99","oldPrice":"","desc":"A beautiful dining table for your home."}'>
+          <div class="featured-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-ETH-BOK-OAK-180-1.jpg" alt="Dining Table" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Dining Table</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$1,699.99</span>
+            </div>
+            <div class="featured-stock low"><span class="dot"></span>5 In stock, hurry up</div>
+          </div>
+        </div>
+        <!-- Product 2 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-OVA-OAK-220-2_1200x1200_97121007-2ef9-4ef9-b968-ad52cec70133.jpg","name":"Oval Dining Table","vendor":"BURROW","price":"$899.99","oldPrice":"$1,299.99","desc":"Modern oval dining table, perfect for gatherings."}'>
+          <div class="featured-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-OVA-OAK-220-2_1200x1200_97121007-2ef9-4ef9-b968-ad52cec70133.jpg" alt="Oval Dining Table" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Oval Dining Table</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$899.99</span>
+              <span class="featured-price-old">$1,299.99</span>
+            </div>
+            <div class="featured-stock in"><span class="dot"></span>15 In stock</div>
+          </div>
+        </div>
+        <!-- Product 3 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/dc-coo-land-oak-lea-tan-4_2.jpg","name":"Leather Dining Chair","vendor":"BURROW","price":"$299.99","oldPrice":"$399.99","desc":"Elegant leather chair for your dining room."}'>
+          <div class="featured-badge" style="background:#ff7a1f">Save 25%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/dc-coo-land-oak-lea-tan-4_2.jpg" alt="Leather Dining Chair" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Leather Dining Chair</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$299.99</span>
+              <span class="featured-price-old">$399.99</span>
+            </div>
+            <div class="featured-stock in"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+        <!-- Product 4 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-EXT-OAK-1.jpg","name":"Extendable Dining Table","vendor":"BURROW","price":"$1,999.99","oldPrice":"","desc":"Extendable table for flexible dining needs."}'>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-EXT-OAK-1.jpg" alt="Extendable Dining Table" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Extendable Dining Table</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$1,999.99</span>
+            </div>
+            <div class="featured-stock in"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+        <!-- Product 5 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-CORD-ASH-NATU-06.jpg","name":"Cord Dining Chair","vendor":"BURROW","price":"$279.99","oldPrice":"$399.99"}'>
+          <div class="featured-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-CORD-ASH-NATU-06.jpg" alt="Cord Dining Chair" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Cord Dining Chair</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$279.99</span>
+              <span class="featured-price-old">$399.99</span>
+            </div>
+            <div class="featured-stock in"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+        <!-- Product 6 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-WIL-COSM-TRAV-OAK-150.jpg","name":"Cosmos Dining Table","vendor":"BURROW","price":"$999.99","oldPrice":"$1,299.99","desc":"Cosmos table, modern and stylish."}'>
+          <div class="featured-badge" style="background:#ff7a1f">Save 23%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-WIL-COSM-TRAV-OAK-150.jpg" alt="Cosmos Dining Table" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Cosmos Dining Table</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$999.99</span>
+              <span class="featured-price-old">$1,299.99</span>
+            </div>
+            <div class="featured-stock in"><span class="dot"></span>30 In stock</div>
+          </div>
+        </div>
+        <!-- Product 7 (thêm mới) -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-BOU-ASH-WHIT-7.jpg","name":"Noris Boucle Dining Chair","vendor":"BURROW","price":"$299.99","oldPrice":"$399.99","desc":"Noris Boucle chair, soft and elegant."}'>
+          <div class="featured-badge" style="background:#ff7a1f">Save 25%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-BOU-ASH-WHIT-7.jpg" alt="Noris Boucle Dining Chair" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Noris Boucle Dining Chair</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$299.99</span>
+              <span class="featured-price-old">$399.99</span>
+            </div>
+            <div class="featured-stock in"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+      </div>
+      <button class="featured-slider-nav right" aria-label="Next">&#10095;</button>
+    </div>
+    <!-- Quick View Modal (Beae style) -->
+    <div class="beae-next-popup" id="quickviewModal">
+      <div class="beae-next-popup--container" data-layout="right" data-layout-mobile="bottom">
+        <div class="beae-popup__wrapper">
+          <div class="beae-popup__body">
+            <button class="beae-popup__close" id="quickviewClose" aria-label="Close">
+              <svg width="24" height="24" viewBox="0 0 24 24"><path d="M17.658 6.343 6.344 17.657M17.658 17.657 6.344 6.343" stroke="currentColor" stroke-width="2"></path></svg>
+            </button>
+            <div class="beae-popup__content">
+              <div class="beae-popup__header">
+                <span class="beae-popup__title">Choose options</span>
+              </div>
+              <div class="beae-popup__main">
+                <div class="beae-popup__img-col">
+                  <img id="quickviewImg" src="" alt="Product" />
+                </div>
+                <div class="beae-popup__info-col">
+                  <h3 id="quickviewName"></h3>
+                  <div class="quickview-vendor" id="quickviewVendor"></div>
+                  <div class="quickview-price-row">
+                    <span class="quickview-price" id="quickviewPrice"></span>
+                    <span class="quickview-price-old" id="quickviewOldPrice"></span>
+                    <span class="quickview-sale-badge" id="quickviewSaleBadge"></span>
+                  </div>
+                  <div class="quickview-desc" id="quickviewDesc"></div>
+                  <a id="quickviewDetail" href="#" class="beae-product-view-detail">View detail</a>
+                </div>
+              </div>
+              <div class="beae-popup__footer">
+                <div class="beae-quantity-wrapper">
+                  <button type="button" class="beae-quantity-btn" id="quickviewMinus">−</button>
+                  <input id="quickviewQty" class="beae-quantity-input" type="number" min="1" value="1">
+                  <button type="button" class="beae-quantity-btn" id="quickviewPlus">+</button>
+                </div>
+                <button class="beae-add-to-cart--submit beae-btn-pr" id="quickviewAddToCart">Add to cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="beae-popup__backdrop"></div>
+      </div>
+    </div>
+  </section>
+  <!-- Shop by category section -->
+  <section class="category-list-section">
+    <div class="category-list-header">
+      <h2 class="category-list-title">Shop by category</h2>
+    </div>
+    <div class="category-list-container">
+      <div class="category-list-slider">
+        <a class="category-list-card" href="#">
+        <img src="https://app.beae.com/storage/tasks/2188/Dining_Chairs_b2b089bc-aae9-4a4f-bc6e-775805dcd249.jpg" alt="Dining Table" />
+        <div class="category-list-label">Dining Table</div>
+      </a>
+      <a class="category-list-card" href="#">
+        <img src="https://app.beae.com/storage/tasks/2188/Dining_Chairs_2.jpg" alt="Dining Chair" />
+        <div class="category-list-label">Dining Chair</div>
+      </a>
+      <a class="category-list-card" href="#">
+        <img src="https://app.beae.com/storage/tasks/2188/Beds_5252a015-9248-40fa-92b8-6df35728a2c4.jpg" alt="Beds" />
+        <div class="category-list-label">Beds</div>
+      </a>
+      <a class="category-list-card" href="#">
+        <img src="https://app.beae.com/storage/tasks/2188/Coffee_Table.jpg" alt="Coffee Table" />
+        <div class="category-list-label">Coffee Table</div>
+      </a>
+      <a class="category-list-card" href="#">
+        <img src="https://app.beae.com/storage/tasks/2188/Bedside_Tables_a609da3e-24c7-4aaa-a631-1dc928e86753.jpg" alt="Bedside Table" />
+        <div class="category-list-label">Bedside Table</div>
+      </a>
+      <a class="category-list-card" href="#">
+        <img src="https://app.beae.com/storage/tasks/2188/Bar_Stools_ff548b4f-04de-49d5-97e7-514f448c85d9.jpg" alt="Bar Stools" />
+        <div class="category-list-label">Bar Stools</div>
+      </a>
+    </div>
+  </section>
+  <!-- Shop by top brands section -->
+  <section class="brand-list-section">
+    <div class="brand-list-header">
+      <h2 class="brand-list-title">Shop by top brands</h2>
+    </div>
+    <div class="brand-list-table">
+      <div class="brand-list-cell">
+        <img src="https://app.beae.com/storage/tasks/2188/Company=Spherule,_Logotype=True,_Color=Gray.png" alt="Spherule" />
+      </div>
+      <div class="brand-list-cell">
+        <img src="https://app.beae.com/storage/tasks/2188/Company=Sisyphus,_Logotype=True,_Color=Gray.png" alt="Sisyphus" />
+      </div>
+      <div class="brand-list-cell">
+        <img src="https://app.beae.com/storage/tasks/2188/Company=Nietzsche,_Logotype=True,_Color=Default.png" alt="Nietzsche" />
+      </div>
+      <div class="brand-list-cell">
+        <img src="https://app.beae.com/storage/tasks/2188/Company=Luminous,_Logotype=True,_Color=Gray.png" alt="Luminous" />
+      </div>
+      <div class="brand-list-cell">
+        <img src="https://app.beae.com/storage/tasks/2188/Company=GlobalBank,_Logotype=True,_Color=Default.png" alt="GlobalBank" />
+      </div>
+      <div class="brand-list-cell">
+        <img src="https://app.beae.com/storage/tasks/2188/Company=Catalog,_Logotype=True,_Color=Gray.png" alt="Catalog" />
+      </div>
+    </div>
+  </section>
+  <!-- Featured Collection (Beae style) Section -->
+  <section class="beae-featured-collection-section">
+    <div class="beae-featured-collection-container">
+      <div class="beae-featured-collection-info">
+        <h2 class="beae-featured-collection-title">Discover our latest collection</h2>
+        <p class="beae-featured-collection-desc">
+          Explore Beae's new design ideas and discover products and collections for every room and style.
+        </p>
+        <a href="#" class="beae-featured-collection-btn">Shop now</a>
+      </div>
+      <div class="beae-featured-collection-list">
+        <!-- Card 1 -->
+        <div class="beae-featured-collection-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-ETH-BOK-OAK-180-1.jpg","name":"Dining Table","vendor":"BURROW","price":"$1,699.99","oldPrice":"","desc":"A beautiful dining table for your home."}'>
+          <div class="beae-featured-collection-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="beae-featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-ETH-BOK-OAK-180-1.jpg" alt="Dining Table" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="beae-featured-collection-card-info">
+            <div class="beae-featured-collection-vendor">BURROW</div>
+            <div class="beae-featured-collection-name">Dining Table</div>
+            <div class="beae-featured-collection-price-row">
+              <span class="beae-featured-collection-price">$1,699.99</span>
+            </div>
+            <div class="beae-featured-collection-stock low"><span class="dot"></span>5 In stock, hurry up</div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="beae-featured-collection-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-OVA-OAK-220-2_1200x1200_97121007-2ef9-4ef9-b968-ad52cec70133.jpg","name":"Oval Dining Table","vendor":"BURROW","price":"$899.99","oldPrice":"$1,299.99","desc":"Modern oval dining table, perfect for gatherings."}'>
+          <div class="beae-featured-collection-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="beae-featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-OVA-OAK-220-2_1200x1200_97121007-2ef9-4ef9-b968-ad52cec70133.jpg" alt="Oval Dining Table" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="beae-featured-collection-card-info">
+            <div class="beae-featured-collection-vendor">BURROW</div>
+            <div class="beae-featured-collection-name">Oval Dining Table</div>
+            <div class="beae-featured-collection-price-row">
+              <span class="beae-featured-collection-price">$899.99</span>
+              <span class="beae-featured-collection-price-old">$1,299.99</span>
+            </div>
+            <div class="beae-featured-collection-stock in"><span class="dot"></span>15 In stock</div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="beae-featured-collection-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/dc-coo-land-oak-lea-tan-4_2.jpg","name":"Leather Dining Chair","vendor":"BURROW","price":"$299.99","oldPrice":"$399.99","desc":"Elegant leather chair for your dining room."}'>
+          <div class="beae-featured-collection-badge" style="background:#ff7a1f">Save 25%</div>
+          <div class="beae-featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/dc-coo-land-oak-lea-tan-4_2.jpg" alt="Leather Dining Chair" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="beae-featured-collection-card-info">
+            <div class="beae-featured-collection-vendor">BURROW</div>
+            <div class="beae-featured-collection-name">Leather Dining Chair</div>
+            <div class="beae-featured-collection-price-row">
+              <span class="beae-featured-collection-price">$299.99</span>
+              <span class="beae-featured-collection-price-old">$399.99</span>
+            </div>
+            <div class="beae-featured-collection-stock in"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="beae-featured-collection-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-EXT-OAK-1.jpg","name":"Extendable Dining Table","vendor":"BURROW","price":"$1,999.99","oldPrice":"","desc":"Extendable table for flexible dining needs."}'>
+          <div class="beae-featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-EXT-OAK-1.jpg" alt="Extendable Dining Table" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="beae-featured-collection-card-info">
+            <div class="beae-featured-collection-vendor">BURROW</div>
+            <div class="beae-featured-collection-name">Extendable Dining Table</div>
+            <div class="beae-featured-collection-price-row">
+              <span class="beae-featured-collection-price">$1,999.99</span>
+            </div>
+            <div class="beae-featured-collection-stock in"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Featured Collection (Beae style) Section -->
+
+  <!-- Featured Product Section -->
+  <section class="beae-featured-product-section">
+    <div class="beae-featured-product-header">
+        <h2 class="beae-featured-product-title">Featured product</h2>
+      </div>
+    <div class="beae-featured-product-container" style="display: flex; align-items: stretch; gap: 32px; border:1px solid #eee; padding: 20px;">
+      <!-- Gallery (block trái) -->
+      <div class="beae-featured-product-gallery" style="flex:1; min-width:0; max-width:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; position:relative; border-right:1px solid #eee;">
+        <div style="display:flex; flex-direction:row; align-items:flex-start; width:100%; max-width:420px;">
+          <div class="beae-featured-product-thumbs" style="flex-direction:column; gap:14px; display:flex; align-items:flex-start; margin-left:-64px; padding-left:0; margin-top:8px;">
+            <img src="https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-CORD-ASH-NATU-06.jpg" alt="thumb1" class="beae-featured-product-thumb active" style="width:74px; height:74px; object-fit:cover; border-radius:8px; border:2px solid #000000; cursor:pointer;" />
+            <img src="https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-CORD-BLAC-BLAC-8.jpg" alt="thumb2" class="beae-featured-product-thumb" style="width:74px; height:74px; object-fit:cover; border-radius:8px; border:2px solid #eee; cursor:pointer;" />
+          </div>
+          <div class="beae-featured-product-slider" style="width:100%; max-width:420px; min-height:346px; display:flex; align-items:center; justify-content:center;">
+            <div class="beae-featured-product-slide active" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
+              <img src="https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-CORD-ASH-NATU-06.jpg" alt="Cord Dining Chair" style="width:100%; max-width:346px; max-height:346px; border-radius:12px; background:#fafafa; object-fit:contain;" />
+            </div>
+            <div class="beae-featured-product-slide" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
+              <img src="https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-CORD-BLAC-BLAC-8.jpg" alt="Cord Dining Chair Black" style="width:100%; max-width:346px; max-height:346px; border-radius:12px; background:#fafafa; object-fit:contain;" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Info (block phải) -->
+      <div class="beae-featured-product-info" style="flex:1; min-width:0; max-width:100%; display:flex; flex-direction:column; justify-content:center; box-sizing:border-box; background:#fff; z-index:2; padding-left:32px;">
+        <div class="beae-featured-product-info-block">
+          <div class="beae-featured-product-vendor" style="color:#888; font-size:1.5rem; margin-bottom:4px;">Burrow</div>
+          <div class="beae-featured-product-title" style="font-size:2.5rem; font-weight:500; margin-bottom:5px; color:#222;">Cord Dining Chair</div>
+          <div class="beae-featured-product-price-row" style="display:flex; align-items:center; gap:12px; margin-bottom:5px;">
+            <span class="beae-featured-product-price" style="color:#ff5a1f; font-size:1.5rem; font-weight:700;">$299.99</span>
+            <span class="beae-featured-product-price-old" style="color:#888; font-size:1.2rem; text-decoration:line-through;">$399.99</span>
+          </div>
+          <div class="beae-featured-product-abstract" style="font-size: 1rem; font-weight: 500; margin-bottom: 10px; color: #222;">Tax included. Shipping calculated at checkout.</div>
+          <hr style="border:none; border-top:1px solid #eee; margin:18px 0 18px 0;" />
+          <div class="beae-featured-product-desc" style="font-size:1rem; color:#333; margin-top:18px; margin-bottom:18px;">Experience ultimate comfort and style with our Cord Dining Chair. Made with high-quality materials, it offers superior support for your back and legs. Its sleek design adds a touch of elegance to any dining space. Enhance your dining experience with this must-have addition.</div>
+          <hr style="border:none; border-top:1px solid #eee; margin:18px 0 18px 0;" />
+          <!-- Color swatch -->
+          <div class="beae-product-option-cont beae-product-option-Color" data-type="radio" data-swatch-type="color_swatch" style="margin-bottom:18px;">
+            <div class="beae-variant-label-cont" style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span class="beae-product-radio-label" style="font-size: 1.5rem;font-weight:600;">Color:</span>
+              <span class="beae-variant-label" style="font-size: 1.5rem;font-weight: 100;" data-option-position="1" id="selectedColor">Natural</span>
+            </div>
+            <ul class="beae-variant-option-list" data-option-position="1" style="display:flex; gap:12px; list-style:none; padding:0; margin:0;">
+              <li class="beae-product-variant-item beae-featured-product-variant beae-product-variant-item--selected" data-value="Natural" title="Natural" style="--beae-color-variant: #f0cb90; width:36px; height:36px; border:2px solid #222; cursor:pointer; display:flex; align-items:center; justify-content:center; background:#fff; box-sizing:border-box;" tabindex="0">
+                <span style="display:block; width:28px; height:28px; background-color:var(--beae-color-variant);"></span>
+              </li>
+              <li class="beae-product-variant-item beae-featured-product-variant" data-value="Black" title="Black" style="--beae-color-variant: #000000; width:36px; height:36px; border:2px solid #eee; cursor:pointer; display:flex; align-items:center; justify-content:center; background:#fff; box-sizing:border-box;" tabindex="0">
+                <span style="display:block; width:28px; height:28px; background-color:var(--beae-color-variant);"></span>
+              </li>
+            </ul>
+          </div>
+          <!-- Add to cart & Buy it now -->
+          <div class="beae-featured-product-atc-row" style="display:flex; gap:0; margin-bottom:10px;">
+            <button class="beae-btn-pr" id="addToCartBtn" style="background:#ff5a1f; color:#fff; border:none; border-radius:0; padding:18px 0; font-size:1.2rem; font-weight:700; cursor:pointer; flex:1; text-align:center;">Add to cart</button>
+            <button class="beae-btn-se" id="buyNowBtn" style="background:#332529; color:#fff; border:none; border-radius:0; padding:18px 0; font-size:1.2rem; font-weight:700; cursor:pointer; flex:1; text-align:center;">Buy it now</button>
+          </div>
+          <!-- Share -->
+          <div class="beae-featured-product-share">
+            <span>Share</span>
+            <a href="#" title="Facebook">
+              <img src="icon/facebook.svg" alt="Share on Facebook">
+            </a>
+            <a href="#" title="X">
+              <img src="icon/x-twitter.svg" alt="Share on X">
+            </a>
+            <a href="#" title="LinkedIn">
+              <img src="icon/linkedin.svg" alt="Share on LinkedIn">
+            </a>
+            <a href="#" title="Telegram">
+              <img src="icon/telegram.svg" alt="Share on Telegram">
+            </a>
+            <a href="#" title="Email">
+              <img src="icon/email.svg" alt="Share via Email">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Featured Product Section -->
+
+  <!-- Discover our newest collection Section -->
+  <section class="beae-featured-collection-section">
+    <div class="beae-featured-collection-container">
+      <div class="beae-featured-collection-info">
+        <h2 class="beae-featured-collection-title">Discover our newest collection</h2>
+        <p class="beae-featured-collection-desc">
+          Explore Beae's new design ideas and discover products and collections for every room and style.
+        </p>
+        <a href="#" class="beae-featured-collection-btn">Shop now</a>
+      </div>
+      <div class="beae-featured-collection-list">
+    
+        <!-- CARD 1 – GỐC -->
+        <div class="beae-featured-collection-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-ETH-BOK-OAK-180-1.jpg","name":"Dining Table","vendor":"BURROW","price":"$1,699.99","oldPrice":"","desc":"A beautiful dining table for your home."}'>
+          <div class="beae-featured-collection-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="beae-featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-ETH-BOK-OAK-180-1.jpg" alt="Dining Table">
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="beae-featured-collection-card-info">
+            <div class="beae-featured-collection-vendor">BURROW</div>
+            <div class="beae-featured-collection-name">Dining Table</div>
+            <div class="beae-featured-collection-price-row">
+              <span class="beae-featured-collection-price">$1,699.99</span>
+            </div>
+            <div class="beae-featured-collection-stock low"><span class="dot"></span>5 In stock, hurry up</div>
+          </div>
+        </div>
+    
+        <!-- CARD 2 – GỐC -->
+        <div class="beae-featured-collection-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-OVA-OAK-220-2_1200x1200_97121007-2ef9-4ef9-b968-ad52cec70133.jpg","name":"Oval Dining Table","vendor":"BURROW","price":"$899.99","oldPrice":"$1,299.99","desc":"Modern oval dining table, perfect for gatherings."}'>
+          <div class="beae-featured-collection-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="beae-featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-OVA-OAK-220-2_1200x1200_97121007-2ef9-4ef9-b968-ad52cec70133.jpg" alt="Oval Dining Table">
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="beae-featured-collection-card-info">
+            <div class="beae-featured-collection-vendor">BURROW</div>
+            <div class="beae-featured-collection-name">Oval Dining Table</div>
+            <div class="beae-featured-collection-price-row">
+              <span class="beae-featured-collection-price">$899.99</span>
+              <span class="beae-featured-collection-price-old">$1,299.99</span>
+            </div>
+            <div class="beae-featured-collection-stock in"><span class="dot"></span>15 In stock</div>
+          </div>
+        </div>
+    
+        <!-- CARD 3 – GỐC -->
+        <div class="beae-featured-collection-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/dc-coo-land-oak-lea-tan-4_2.jpg","name":"Leather Dining Chair","vendor":"BURROW","price":"$299.99","oldPrice":"$399.99","desc":"Elegant leather chair for your dining room."}'>
+          <div class="beae-featured-collection-badge" style="background:#ff7a1f">Save 25%</div>
+          <div class="beae-featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/dc-coo-land-oak-lea-tan-4_2.jpg" alt="Leather Dining Chair">
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="beae-featured-collection-card-info">
+            <div class="beae-featured-collection-vendor">BURROW</div>
+            <div class="beae-featured-collection-name">Leather Dining Chair</div>
+            <div class="beae-featured-collection-price-row">
+              <span class="beae-featured-collection-price">$299.99</span>
+              <span class="beae-featured-collection-price-old">$399.99</span>
+            </div>
+            <div class="beae-featured-collection-stock in"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+    
+        <!-- CARD 4 – GỐC -->
+        <div class="beae-featured-collection-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-EXT-OAK-1.jpg","name":"Extendable Dining Table","vendor":"BURROW","price":"$1,999.99","oldPrice":"","desc":"Extendable table for flexible dining needs."}'>
+          <div class="beae-featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-EXT-OAK-1.jpg" alt="Extendable Dining Table" class="featured-img">
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="beae-featured-collection-card-info">
+            <div class="beae-featured-collection-vendor">BURROW</div>
+            <div class="beae-featured-collection-name">Extendable Dining Table</div>
+            <div class="beae-featured-collection-price-row">
+              <span class="beae-featured-collection-price">$1,999.99</span>
+            </div>
+            <div class="beae-featured-collection-stock in"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+      </div>
+    
+  </section>
+  <!-- End Discover our newest collection Section -->
+
+  <!-- Our Blog Section -->
+  <section class="blog-section" style="padding: 32px 18px; max-width: 1280px; margin: 0 auto 32px auto;">
+    <div class="blog-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+      <div class="blog-title" style="font-size: 1.5rem; font-weight: 700;">Our blog</div>
+      <a class="blog-viewall" href="/blogs/blog-furniture" style="color: #ff5a1f; font-size: 1rem; text-decoration: none; font-weight: 500;">View all</a>
+          </div>
+    <div class="blog-slider" style="display: flex; gap: 18px; overflow-x: auto; padding-bottom: 8px;">
+      <!-- Blog Post 1 -->
+      <div class="blog-card" style="background: #fff; border: 1px solid #eee; border-radius: 8px; min-width: 300px; max-width: 320px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+        <img src="https://app.beae.com/storage/tasks/2188/pexels-adriannacalvo-23384593.jpg" alt="From Drab to Fab: Upcycling Old Furniture" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px 8px 0 0;" />
+        <div style="padding: 16px; display: flex; flex-direction: column; flex: 1;">
+          <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 6px;"><a href="test" style="color: #222; text-decoration: none;">From Drab to Fab: Upcycling Old Furniture</a></div>
+          <div style="font-size: 1rem; color: #444; margin-bottom: 10px; flex: 1;">Encourage eco-friendly decor! Teach readers how to breathe new life into old furniture pieces. Share DIY techniques like chalk painting, reupholstering, and decoupage. Showcase inspiring before-and-after photos.</div>
+          <a class="blog-readmore" href="test" style="color: #ff5a1f; font-size: 0.95rem; font-weight: 500; text-decoration: none;">Read more</a>
+          </div>
+          </div>
+      <!-- Blog Post 2 -->
+      <div class="blog-card" style="background: #fff; border: 1px solid #eee; border-radius: 8px; min-width: 300px; max-width: 320px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+        <img src="https://app.beae.com/storage/tasks/2188/pexels-hai-vu-1566556-8180361.jpg" alt="Outdoor Oasis: Transform Your Patio with Trendy Furniture" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px 8px 0 0;" />
+        <div style="padding: 16px; display: flex; flex-direction: column; flex: 1;">
+          <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 6px;"><a href="test" style="color: #222; text-decoration: none;">Outdoor Oasis: Transform Your Patio with Trendy Furniture</a></div>
+          <div style="font-size: 1rem; color: #444; margin-bottom: 10px; flex: 1;">Highlight outdoor furniture trends! From hanging egg chairs to fire pit tables, inspire readers to create an inviting outdoor space. Include tips on weather-resistant materials and cozy accessories.</div>
+          <a class="blog-readmore" href="test" style="color: #ff5a1f; font-size: 0.95rem; font-weight: 500; text-decoration: none;">Read more</a>
+        </div>
+      </div>
+      <!-- Blog Post 3 -->
+      <div class="blog-card" style="background: #fff; border: 1px solid #eee; border-radius: 8px; min-width: 300px; max-width: 320px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+        <img src="https://app.beae.com/storage/tasks/2188/pexels-khaydenarts-923167.jpg" alt="Wood vs. Metal: The Great Dining Table Debate" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px 8px 0 0;" />
+        <div style="padding: 16px; display: flex; flex-direction: column; flex: 1;">
+          <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 6px;"><a href="test" style="color: #222; text-decoration: none;">Wood vs. Metal: The Great Dining Table Debate</a></div>
+          <div style="font-size: 1rem; color: #444; margin-bottom: 10px; flex: 1;">Explore the pros and cons of wooden and metal dining tables. Discuss durability, aesthetics, and maintenance. Include beautiful visuals of both rustic farmhouse tables and sleek industrial designs.</div>
+          <a class="blog-readmore" href="test" style="color: #ff5a1f; font-size: 0.95rem; font-weight: 500; text-decoration: none;">Read more</a>
+        </div>
+        </div>
+      <!-- Blog Post 4 -->
+      <div class="blog-card" style="background: #fff; border: 1px solid #eee; border-radius: 8px; min-width: 300px; max-width: 320px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+        <img src="https://app.beae.com/storage/tasks/2188/pexels-andreaedavis-27065116.jpg" alt="Small Space Solutions: Furniture Hacks for Cozy Apartments" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px 8px 0 0;" />
+        <div style="padding: 16px; display: flex; flex-direction: column; flex: 1;">
+          <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 6px;"><a href="test" style="color: #222; text-decoration: none;">Small Space Solutions: Furniture Hacks for Cozy Apartments</a></div>
+          <div style="font-size: 1rem; color: #444; margin-bottom: 10px; flex: 1;">Share creative ideas for maximizing space in compact apartments. From multifunctional furniture (think storage ottomans and wall-mounted desks) to clever layout tricks, help readers create a stylish and functional home.</div>
+          <a class="blog-readmore" href="test" style="color: #ff5a1f; font-size: 0.95rem; font-weight: 500; text-decoration: none;">Read more</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Our Blog Section -->
+
+  <!-- Recently Viewed Section -->
+  <section class="featured-section recently-viewed-section">
+    <div class="featured-header">
+      <h2 class="featured-title">Recently viewed</h2>
+    </div>
+    <div class="featured-slider-wrp">
+      <button class="featured-slider-nav left" aria-label="Previous">&#10094;</button>
+      <div class="featured-slider">
+        <!-- Card 1 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-ETH-BOK-OAK-180-1.jpg","name":"Dining Table","vendor":"BURROW","price":"$1,699.99","oldPrice":"","desc":"A beautiful dining table for your home."}'>
+          <div class="featured-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-ETH-BOK-OAK-180-1.jpg" alt="Dining Table" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Dining Table</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$1,699.99</span>
+            </div>
+            <div class="featured-stock low"><span class="dot"></span>5 In stock, hurry up</div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-OVA-OAK-220-2_1200x1200_97121007-2ef9-4ef9-b968-ad52cec70133.jpg","name":"Oval Dining Table","vendor":"BURROW","price":"$899.99","oldPrice":"$1,299.99","desc":"Modern oval dining table, perfect for gatherings."}'>
+          <div class="featured-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-OVA-OAK-220-2_1200x1200_97121007-2ef9-4ef9-b968-ad52cec70133.jpg" alt="Oval Dining Table" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Oval Dining Table</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$899.99</span>
+              <span class="featured-price-old">$1,299.99</span>
+            </div>
+            <div class="featured-stock"><span class="dot"></span>15 In stock</div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/dc-coo-land-oak-lea-tan-4_2.jpg","name":"Leather Dining Chair","vendor":"BURROW","price":"$299.99","oldPrice":"$399.99","desc":"Elegant leather chair for your dining room."}'>
+          <div class="featured-badge" style="background:#ff7a1f">Save 25%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/dc-coo-land-oak-lea-tan-4_2.jpg" alt="Leather Dining Chair" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Leather Dining Chair</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$299.99</span>
+              <span class="featured-price-old">$399.99</span>
+            </div>
+            <div class="featured-stock"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-EXT-OAK-1.jpg","name":"Extendable Dining Table","vendor":"BURROW","price":"$1,999.99","oldPrice":"","desc":"Extendable table for flexible dining needs."}'>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-SQH-CASA-EXT-OAK-1.jpg" alt="Extendable Dining Table" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Extendable Dining Table</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$1,999.99</span>
+            </div>
+            <div class="featured-stock"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-CORD-ASH-NATU-06.jpg","name":"Cord Dining Chair","vendor":"BURROW","price":"$279.99","oldPrice":"$399.99","desc":}'>
+          <div class="featured-badge" style="background:#ff5a1f">Save 30%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DC-LIT-NORI-CORD-ASH-NATU-06.jpg" alt="Cord Dining Chair" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Cord Dining Chair</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$279.99</span>
+              <span class="featured-price-old">$399.99</span>
+            </div>
+            <div class="featured-stock"><span class="dot"></span>10 In stock</div>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="featured-card" data-product='{"img":"https://app.beae.com/storage/tasks/2188/DT-WIL-COSM-TRAV-OAK-150.jpg","name":"Cosmos Dining Table","vendor":"BURROW","price":"$999.99","oldPrice":"$1,299.99","desc":"Cosmos table, modern and stylish."}'>
+          <div class="featured-badge" style="background:#ff7a1f">Save 23%</div>
+          <div class="featured-img-wrap">
+            <img src="https://app.beae.com/storage/tasks/2188/DT-WIL-COSM-TRAV-OAK-150.jpg" alt="Cosmos Dining Table" class="featured-img" />
+            <button class="quick-view-btn">Quick view</button>
+          </div>
+          <div class="featured-info">
+            <div class="featured-vendor">BURROW</div>
+            <div class="featured-name">Cosmos Dining Table</div>
+            <div class="featured-price-row">
+              <span class="featured-price">$999.99</span>
+              <span class="featured-price-old">$1,299.99</span>
+            </div>
+            <div class="featured-stock"><span class="dot"></span>30 In stock</div>
+          </div>
+        </div>
+      </div>
+      <button class="featured-slider-nav right" aria-label="Next">&#10095;</button>
+    </div>
+  </section>
+  <!-- End Recently Viewed Section -->
+
+  <!-- Service Info Section -->
+  <section class="service-info-section" style="background: #f7f4f2; padding: 36px 0 32px 0; margin: 0;">
+    <div class="service-info-grid" style="max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 0; flex-wrap: wrap;">
+      <!-- Item 1 -->
+      <div class="service-info-item" style="flex: 1 1 0; min-width: 220px; display: flex; align-items: flex-start; gap: 14px; padding: 0 18px; margin-bottom: 18px;">
+        <span style="font-size: 2.1rem; color: #222; margin-right: 8px; display: flex; align-items: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="#222" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3.5 7.5 12 12.5l8.5-5M12 12.5v8M21 7.5v9a2 2 0 0 1-1 1.73l-7 4.04a2 2 0 0 1-2 0l-7-4.04A2 2 0 0 1 3 16.5v-9a2 2 0 0 1 1-1.73l7-4.04a2 2 0 0 1 2 0l7 4.04a2 2 0 0 1 1 1.73Z"/></svg>
+        </span>
+        <div>
+          <div style="font-weight: 600; color: #222; margin-bottom: 4px;">Shipping & Return</div>
+          <div style="color: #525252; font-size: 1rem;">We offer complimentary shipping and returns on all Beae orders.</div>
+        </div>
+      </div>
+      <!-- Item 2 -->
+      <div class="service-info-item" style="flex: 1 1 0; min-width: 220px; display: flex; align-items: flex-start; gap: 14px; padding: 0 18px; margin-bottom: 18px;">
+        <span style="font-size: 2.1rem; color: #222; margin-right: 8px; display: flex; align-items: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="#222" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"/><path d="M16 3v4M8 3v4"/></svg>
+        </span>
+        <div>
+          <div style="font-weight: 600; color: #222; margin-bottom: 4px;">Gift package</div>
+          <div style="color: #525252; font-size: 1rem;">Pair text with an image to focus on your chosen product.</div>
+        </div>
+      </div>
+      <!-- Item 3 -->
+      <div class="service-info-item" style="flex: 1 1 0; min-width: 220px; display: flex; align-items: flex-start; gap: 14px; padding: 0 18px; margin-bottom: 18px;">
+        <span style="font-size: 2.1rem; color: #222; margin-right: 8px; display: flex; align-items: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="#222" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="12" cy="11" r="1"/><circle cx="16" cy="11" r="1"/><circle cx="8" cy="11" r="1"/></svg>
+        </span>
+        <div>
+          <div style="font-weight: 600; color: #222; margin-bottom: 4px;">Our Service</div>
+          <div style="color: #525252; font-size: 1rem;">Expert support, always available: Our client care team is here to assist you</div>
+        </div>
+      </div>
+      <!-- Item 4 -->
+      <div class="service-info-item" style="flex: 1 1 0; min-width: 220px; display: flex; align-items: flex-start; gap: 14px; padding: 0 18px; margin-bottom: 18px;">
+        <span style="font-size: 2.1rem; color: #222; margin-right: 8px; display: flex; align-items: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="#222" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </span>
+        <div>
+          <div style="font-weight: 600; color: #222; margin-bottom: 4px;">Book an Appointment</div>
+          <div style="color: #525252; font-size: 1rem;">We're happy to help with in-store or virtual appointments.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Service Info Section -->
+
+  <script>
+    // XÓA: Switch between desktop and mobile views và các biến liên quan
+    // XÓA: Hàm wrapSectionsForMobile và các event listener liên quan
+    // ... giữ lại các phần code khác ...
+  </script>
+
+  <!-- Mobile wrapper script -->
+  <script>
+  function wrapSectionsForMobile() {
+    const isMobile = window.innerWidth <= 576;
+    if(isMobile) {
+      if (!document.querySelector('.main-mobile-wrapper')) {
+        const main = document.createElement('main');
+        main.className = 'main-mobile-wrapper';
+        // Lấy tất cả section sau header
+        const sections = Array.from(document.body.querySelectorAll('section'));
+        sections.forEach(sec => main.appendChild(sec));
+        // Đưa main vào sau header
+        document.body.insertBefore(main, document.body.querySelector('script'));
+      }
+    } else {
+      // Nếu chuyển về desktop thì bỏ wrapper
+      const main = document.querySelector('.main-mobile-wrapper');
+      if(main) {
+        while(main.firstChild) document.body.insertBefore(main.firstChild, main);
+        main.remove();
+      }
+    }
+  }
+  // Gọi khi load và resize
+  window.addEventListener('DOMContentLoaded', wrapSectionsForMobile);
+  window.addEventListener('resize', wrapSectionsForMobile);
+  </script>
+
+  <script>
+    // Simple slider logic cho hero section
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-slider-dot');
+    let current = 0;
+    let timer = null;
+
+    function showSlide(idx) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === idx);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+      });
+      current = idx;
+    }
+
+    function nextSlide() {
+      showSlide((current + 1) % slides.length);
+    }
+    function startAuto() {
+      timer = setInterval(nextSlide, 5000);
+    }
+    function stopAuto() {
+      clearInterval(timer);
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => { stopAuto(); showSlide(i); startAuto(); });
+    });
+
+    // Start slider
+    showSlide(0);
+    startAuto();
+
+    // --- FEATURED PRODUCT: Color & Thumb selection ---
+    const productSlides = document.querySelectorAll('.beae-featured-product-slide');
+    const productThumbs = document.querySelectorAll('.beae-featured-product-thumb');
+    const productVariants = document.querySelectorAll('.beae-featured-product-variant');
+    let currentProductSlide = 0;
+
+    function slideToProduct(index) {
+      if (index === currentProductSlide) return;
+      productSlides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      productThumbs.forEach((t, i) => {
+        t.classList.toggle('active', i === index);
+        t.style.borderColor = i === index ? '#ff5a1f' : '#eee';
+      });
+      productVariants.forEach((v, i) => {
+        v.classList.toggle('active', i === index);
+        v.style.borderColor = i === index ? '#ff5a1f' : '#eee';
+      });
+      currentProductSlide = index;
+    }
+
+    productThumbs.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        slideToProduct(index);
+      });
+    });
+    productVariants.forEach((variant, index) => {
+      variant.addEventListener('click', function() {
+        slideToProduct(index);
+      });
+    });
+
+    // --- QUICKVIEW POPUP ---
+    function showQuickview(product) {
+      const modal = document.getElementById('quickviewModal');
+      document.getElementById('quickviewImg').src = product.img || '';
+      document.getElementById('quickviewName').textContent = product.name || '';
+      document.getElementById('quickviewVendor').textContent = product.vendor || '';
+      document.getElementById('quickviewPrice').textContent = product.price || '';
+      document.getElementById('quickviewOldPrice').textContent = product.oldPrice || '';
+      document.getElementById('quickviewDesc').textContent = '';
+      document.getElementById('quickviewSaleBadge').textContent = '';
+      if(product.oldPrice && product.price) {
+        const p = parseFloat(product.price.replace(/[^\d.]/g, ''));
+        const o = parseFloat(product.oldPrice.replace(/[^\d.]/g, ''));
+        if(o > p) {
+          document.getElementById('quickviewSaleBadge').textContent = 'Sale';
+        }
+      }
+      modal.classList.add('active');
+    }
+    function hideQuickview() {
+      document.getElementById('quickviewModal').classList.remove('active');
+    }
+    // Gán sự kiện cho tất cả quick-view-btn
+    document.querySelectorAll('.quick-view-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        let card = btn.closest('.featured-card, .beae-featured-collection-card');
+        if(card && card.dataset.product) {
+          try {
+            const product = JSON.parse(card.dataset.product);
+            showQuickview(product);
+          } catch(err) {}
+        }
+      });
+    });
+    // Đóng popup khi bấm nút X hoặc nền mờ
+    // Close quickview when clicking on X button
+    document.getElementById('quickviewClose').onclick = hideQuickview;
+    
+    // Close quickview when clicking outside the popup
+    document.querySelector('#quickviewModal .beae-popup__backdrop').onclick = function(e) {
+      if (e.target.classList.contains('beae-popup__backdrop')) {
+        hideQuickview();
+      }
+    };
+
+    // Handle quantity buttons in quickview
+    const quickviewQty = document.getElementById('quickviewQty');
+    const quickviewMinus = document.getElementById('quickviewMinus');
+    const quickviewPlus = document.getElementById('quickviewPlus');
+
+    quickviewMinus.addEventListener('click', function() {
+      const currentValue = parseInt(quickviewQty.value);
+      if (currentValue > 1) {
+        quickviewQty.value = currentValue - 1;
+      }
+    });
+
+    quickviewPlus.addEventListener('click', function() {
+      const currentValue = parseInt(quickviewQty.value);
+      if (currentValue < 99) {
+        quickviewQty.value = currentValue + 1;
+      }
+    });
+
+    quickviewQty.addEventListener('change', function() {
+      let value = parseInt(this.value);
+      if (isNaN(value) || value < 1) {
+        value = 1;
+      } else if (value > 99) {
+        value = 99;
+      }
+      this.value = value;
+    });
+  </script>
+
+  <script>
+    // --- FEATURED SLIDER: Nút < > ---
+    document.querySelectorAll('.featured-slider-wrp').forEach(function(wrp) {
+      const slider = wrp.querySelector('.featured-slider');
+      const btnLeft = wrp.querySelector('.featured-slider-nav.left');
+      const btnRight = wrp.querySelector('.featured-slider-nav.right');
+      if (!slider || !btnLeft || !btnRight) return;
+      // Tính toán khoảng cách scroll mỗi lần bấm
+      let scrollAmount = slider.offsetWidth * 0.8;
+      btnLeft.addEventListener('click', function(e) {
+        e.preventDefault();
+        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+      btnRight.addEventListener('click', function(e) {
+        e.preventDefault();
+        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
+
+
